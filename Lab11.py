@@ -9,6 +9,10 @@
 # keep us organized, but please share any ideas you have for 
 # this lab.
 
+# Please note that any code you see in my section is mostly just
+# for my own practice and not meant as a basis for how we should 
+# code this project together.
+
 
 
 ##############################################################
@@ -150,8 +154,8 @@ def ryanPlay():
   
   print 'Welcome my friend. I need you to go to the north room and find me a letter and the key inside that room.'
   print 'Finding them is your only hope out of here'
-      
-          
+  
+     
               
                   
                       
