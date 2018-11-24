@@ -9,15 +9,18 @@ class Room(object):
 	# ypos: Y coordinate of the room on the map.
 	# items: Number of items in the room.
 	# name: Name of room.
+	# directions: Valid directions for player movement in or out of room. 
 	
+	# Class "constructor"
 	# Initializes room's name, x/y coordinates, and number of items.
 	# Note: A player object, theoretically, will always start in a room at (0,0).
 	def __init__(self, name, xpos, ypos, items):
 		self.xpos = xpos
 		self.ypos = ypos
-		self.name = name
-		self.items = items 
-	
+		self.name = ""
+		self.items = items
+		self.directions = {'directions': 'north', 'south', 'east', 'west'}
+		
 	# Returns the x and y coordinates of the room's position.
 	def getPosition(self):
 		return self.xpos
@@ -39,3 +42,5 @@ class Room(object):
 		else:
 			return False 
 	
+	# Function to add or remove room's valid directions (dictionary)
+	# depending if player has reached x or y bound of map (a.k.a. can't move further in one direction)
