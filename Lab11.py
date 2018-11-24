@@ -62,16 +62,6 @@ class Map:
   def __getitem__(self, x, y):
     return self.room_list[x][y]
 
-def initialize_map():
-  rows = 3
-  columns = 3
-  room_list = [[],[],[]]
-  for x in range(0,rows):
-    for y in range(0,columns):
-      room_list[x].append(Room("UNKNOWN ROOM", [], "You hear a distant howling"))
-      ## can we check if name=="UNKNOWN ROOM" and then say the player cannot go that way?
-
-  return room_list
 
 ##############################################################
 ##############################################################
@@ -180,8 +170,10 @@ def ryanPlay():
   
      
 def main():
-  m = Map([[],[],[]])
-
+  m = Map([[0,1,2],\
+           [3,4,5],\
+           [6,7,8]])
+  print m.__getitem__(2,2)
   main_room = Room("Main Room", [],
                      "You wake up in a weird room. There are doors to the North, South, East, and West.")
   north_room = Room("North Room", [], "You are in the North Room")
@@ -194,8 +186,15 @@ def main():
   m.add(south_room, 2, 1)
   m.add(east_room, 2, 2)
 
-  print m.__getitem__(1, 1).name
-  print m.__getitem__(1, 1).description
+  # Testing printing out name and description of a Room, given that the location on the map
+  # IS a room. Otherwise, print YOU CANNOT GO THAT WAY.
+  for x in range(0,3):
+    for y in range(0,3):
+      if isinstance(m.__getitem__(x,y), Room):
+        print m.__getitem__(x, y).name
+        print m.__getitem__(x, y).description
+      else:
+        print "YOU CANNOT GO THAT WAY"
                               
                                   
                                       
