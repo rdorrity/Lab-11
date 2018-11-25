@@ -50,6 +50,8 @@
 #                     --------------------
 #         0                     1                  2
 
+import re
+
 class Map:
 
   def __init__(self, room_list):
@@ -130,27 +132,47 @@ class Room:
 ##############################################################
 #############     Nathan Warren-Acord     ####################
 
+cmdExit = re.compile(("^(Quit|Exit){1}$"),re.I)
+cmdInv = re.compile("^(Inventory){1}$",re.I)
+cmdLook = re.compile(("^(Scan|Look){1}$"),re.I)
+cmdHelp = re.compile(("^(Help){1}$"),re.I)
+cmdExamine = re.compile(("^(?<=Examine\s)(\w+)$"),re.I)
+cmdTake = re.compile(("^(?<=Take\s)(\w+)$"),re.I)
+cmdDrop = re.compile(("^(?<=Drop\s)(\w+)$"),re.I)
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+def user_input(cmmd):
+  if cmdExit.search(cmmd):
+    pass
+    #Call exit function
+  elif cmdHelp.search(cmmd):
+    pass
+    #Print out commands
+  elif cmdInv.search(cmmd): 
+    pass
+    #Print out contents of the inventory
+  elif cmdLook.search(cmmd):
+    pass
+    #Print out description for current room
+  elif cmdExamine.search(cmmd):
+    examine = cmdExamine.search(cmmd).group(0)
+    #if examine in (player inv) or examine in (room inv):
+      #Print out that object description
+    #else:
+      #Print that player can't do that
+  elif cmdTake.search(cmmd):
+    take = cmdTake.search(cmmd).group(0)
+    #If take in room inv and is obtainable:
+      #Add to player's inv and remove from room's inv
+    #else:
+      #Tell player that it failed
+  elif cmdDrop.search(cmmd):
+    dropped = cmdDrop.search(cmmd).group(0)
+    #If in player's inv:
+      #Remove from player's inv and add to room inv
+    #Else:
+      #Tell player it failed
+  else:
+    print "I don't know that command."
 
 ##############################################################
 ##############################################################
