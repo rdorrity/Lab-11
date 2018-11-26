@@ -46,8 +46,8 @@ Introduction/Help Menu
  Player Actions
  --------------
  Check inventory: inventory
- Take item: take(item)
- Drop item: drop(item)
+ Take item: take
+ Drop item: drop
  Look around: look/scan
  Examine item/room: examine
  Exit game: quit/exit 
