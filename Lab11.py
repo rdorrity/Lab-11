@@ -139,9 +139,9 @@ cmdExit = re.compile(("^(Quit|Exit){1}$"),re.I)
 cmdInv = re.compile("^(Inventory){1}$",re.I)
 cmdLook = re.compile(("^(Scan|Look){1}$"),re.I)
 cmdHelp = re.compile(("^(Help){1}$"),re.I)
-cmdExamine = re.compile(("^(?<=Examine\s)(\w+)$"),re.I)
-cmdTake = re.compile(("^(?<=Take\s)(\w+){1}$"),re.I)
-cmdDrop = re.compile(("^(?<=Drop\s)(\w+)$"),re.I)
+cmdExamine = re.compile(("^Examine\s((\w+)(?:\s?)){1,4}$"),re.I)
+cmdTake = re.compile(("^Take\s((\w+)(?:\s?)){1,4}$"),re.I)
+cmdDrop = re.compile(("^Drop\s((\w+)(?:\s?)){1,4}$"),re.I)
 
 def user_input(cmmd):
   if cmdExit.search(cmmd):
@@ -154,16 +154,21 @@ def user_input(cmmd):
   elif cmdLook.search(cmmd):
     print p.location.description
   elif cmdExamine.search(cmmd):
-    examine = cmdExamine.search(cmmd).group(0)
+    examine = cmdExamine.search(cmmd)
+    examine = re.sub("examine ","",examine.group(),1)
+    #Examine function call would go here <--
     #if examine in (player inv) or examine in (room inv):
       #Print out that object description
     #else:
       #Print that player can't do that
   elif cmdTake.search(cmmd):
-    take = cmdTake.search(cmmd).group(0)
+    take = cmdTake.search(cmmd)
+    take = re.sub("take ","",take.group(),1)
     p.take_item(take)
   elif cmdDrop.search(cmmd):
-    dropped = cmdDrop.search(cmmd).group(0)
+    dropped = cmdDrop.search(cmmd)
+    dropped = re.sub("drop ","",dropped.group(),1)
+    #Dropped function call would go here <--
     #If in player's inv:
       #Remove from player's inv and add to room inv
     #Else:
