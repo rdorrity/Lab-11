@@ -210,14 +210,12 @@ def user_input(cmmd):
     pass
     #Call exit function
   elif cmdHelp.search(cmmd):
-    pass
+    print_directions()
     #Print out commands
   elif cmdInv.search(cmmd): 
-    pass
-    #Print out contents of the inventory
+    Player.print_inventory()
   elif cmdLook.search(cmmd):
-    pass
-    #Print out description for current room
+    print Player.location.description
   elif cmdExamine.search(cmmd):
     examine = cmdExamine.search(cmmd).group(0)
     #if examine in (player inv) or examine in (room inv):
@@ -226,16 +224,16 @@ def user_input(cmmd):
       #Print that player can't do that
   elif cmdTake.search(cmmd):
     take = cmdTake.search(cmmd).group(0)
-    #If take in room inv and is obtainable:
-      #Add to player's inv and remove from room's inv
-    #else:
-      #Tell player that it failed
+    Player.take_item(take)
   elif cmdDrop.search(cmmd):
     dropped = cmdDrop.search(cmmd).group(0)
     #If in player's inv:
       #Remove from player's inv and add to room inv
     #Else:
       #Tell player it failed
+  elif cmdMove.search(cmmd):
+    move = cmdMove.search(cmmd).group(0)
+    Player.move(move)
   else:
     print "I don't know that command."
 
