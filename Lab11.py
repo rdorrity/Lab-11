@@ -204,6 +204,7 @@ cmdHelp = re.compile(("^(Help){1}$"),re.I)
 cmdExamine = re.compile(("^(?<=Examine\s)(\w+)$"),re.I)
 cmdTake = re.compile(("^(?<=Take\s)(\w+)$"),re.I)
 cmdDrop = re.compile(("^(?<=Drop\s)(\w+)$"),re.I)
+cmdMove = re.compile(("north|n|south|s|west|w|east|e|up|down{1}"),re.I)
 
 def user_input(cmmd):
   if cmdExit.search(cmmd):
@@ -236,6 +237,12 @@ def user_input(cmmd):
       #Remove from player's inv and add to room inv
     #Else:
       #Tell player it failed
+  elif cmdMove.search(cmmd):
+	move = cmdMove.search(cmmd).group(0)
+	#If move in room connections:
+		#Put player in the new room
+	#Else:
+		#print ("You can't go that way!")
   else:
     print "I don't know that command."
 
