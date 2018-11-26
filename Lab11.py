@@ -52,7 +52,6 @@
 
 import re
 
-
 class Location:
 
   def __init__(self, name, description, interactions, connections):
@@ -93,10 +92,7 @@ itemTable = {
 # Main Room
 main_room.name ="Main Room"
 main_room.interactions = []
-main_room.description = " Your body aches. There is flowing water, somewhere, but you cannot tell where.\n\
-Rolling over, blades of grass tickle your skin and the smell of ash brings\n\
-burning tears. As you wipe your eyes, the surrounding structure comes into focus.\n\
-Lit with flickering torchlight, the room darkens at the corners. \
+main_room.description = " Lit with a flickering torchlight, the room darkens at the corners. \
 The walls are\nCyclopean stone and painted with moss. \
 Motes of flora drift lightly and your feet\nsettle on soft grass. \
 Four doors face you in each cardinal direction." + itemTable["piece of metal"][2]
@@ -295,12 +291,28 @@ def ryanPlay():
   print 'Welcome my friend. I need you to go to the north room and find me a letter and the key inside that room.'
   print 'Finding them is your only hope out of here'
   
-  
-     
+def printWelcome():
+  print "Your body aches. There is flowing water, somewhere, but you cannot tell where.\n\
+Rolling over, blades of grass tickle your skin and the smell of ash brings\n\
+burning tears. As you wipe your eyes, the surrounding structure comes into focus.\n\
+You look around and discover you are in the ... "
 
-Location.print_description(main_room)
-Location.remove_item(main_room, "piece of metal")
-Location.print_description(main_room)
+def printDirections():
+  print "\nWelcome to some sort of text adventure game blah blah"
+  print "\nPrint directions here\n"
+  raw_input("Press Enter to continue...\n")
+     
+def main():
+
+  printDirections()
+  printWelcome()
+  Location.print_description(main_room)
+
+
+#testing
+main()
+#Location.remove_item(main_room, "piece of metal")
+#Location.print_description(main_room)
 
 
                                   
