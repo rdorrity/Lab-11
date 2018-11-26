@@ -134,7 +134,7 @@ west_room.interactions = []
 west_room.connections = {"east": main_room}
 
 
-cmdMove = re.compile(("(north|n|south|s|west|w|east|e|up|down)"),re.I)
+cmdMove = re.compile(("^(north|n|south|s|west|w|east|e|up|down){1}$"),re.I)
 cmdExit = re.compile(("^(Quit|Exit){1}$"),re.I)
 cmdInv = re.compile("^(Inventory){1}$",re.I)
 cmdLook = re.compile(("^(Scan|Look){1}$"),re.I)
@@ -170,7 +170,7 @@ def user_input(cmmd):
       #Tell player it failed
   elif cmdMove.search(cmmd):
     move = cmdMove.search(cmmd).group(0)
-    Player.move(move)
+    Player.move(p, move)
   else:
     print "I don't know that command."
 
@@ -191,7 +191,10 @@ class Player():
         if possibility in self.location.connections:
           self.location.visited = True
           self.location = self.location.connections[possibility]
-        print "There's nowhere to go to the " + direction
+          print self.location.print_description()
+        else:  
+          print "There's nowhere to go to the " + direction
+        
 
   def print_inventory(self):
     for item in itemTable:
@@ -232,18 +235,28 @@ def main():
 
   print_directions()
   print_welcome()
-  #Location.print_description(main_room)
+  Location.print_description(main_room)
 
 
 #testing
-main()
 p = Player()
-p.take_item("piece of metal")
-p.print_inventory()
+main()
+#p.take_item("piece of metal")
+#p.print_inventory()
 #Location.print_description(main_room)
 #p.move("north")
 #print p.location.name
 
+
+# run until exit or player dies
+while True:
+  # prompt user for movement
+  user_input(requestString(">>>",))
+
+
+# go to room and allow commands
+
+# 
 
 
                                   
