@@ -300,11 +300,6 @@ class Player:
 #    self.room_items.remove(item)
 #   
 
-def ryanPlay():
-  
-  print 'Welcome my friend. I need you to go to the north room and find me a letter and the key inside that room.'
-  print 'Finding them is your only hope out of here'
-  
 def printWelcome():
   print "Your body aches. There is flowing water, somewhere, but you cannot tell where.\n\
 Rolling over, blades of grass tickle your skin and the smell of ash brings\n\
