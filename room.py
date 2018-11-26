@@ -33,12 +33,21 @@ class Room(object):
 		return self.xpos
 		return self.ypos
 	
-	# Sets a room with random coordinates within the bounds of the map.
+	# Sets a room's loation using a random coordinate within the bounds of the map.
 	def randomPosition(self, name):
-		# X-axis range variable (signed)
-		x_range = 
-		# Y-axis range variable (signed)
-		# Generate random numbers for x and y coordinates within bounds
+		# Min/max ranges for x and y axes. Can be changed as necessary (use map class function?)
+		x_min = -10
+		x_max = 10
+		y_min = -10
+		y_max = 10
+	
+		# X coordinate
+		x_rand = random.randint(x_min, x_max + 1)
+		# Y coordinate
+		y_rand = random.randint(y_min, y_max + 1)
+		
+		self.xpos = x_rand
+		self.ypos = y_rand 
 	
 	# Returns true if room has items, else false. 
 	def hasItems(self):
@@ -47,6 +56,8 @@ class Room(object):
 		else:
 			return False 
 	
-	# Function to add or remove room's valid directions (dictionary)
+	# Checks room's valid directions for player movement.
+	# Adds or removes room's valid directions (dictionary)
 	# depending if player has reached x or y bound of map (a.k.a. can't move further in one direction)
+	#def checkBounds(self):
 	
