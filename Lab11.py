@@ -139,9 +139,9 @@ cmdExit = re.compile(("^(Quit|Exit){1}$"),re.I)
 cmdInv = re.compile("^(Inventory){1}$",re.I)
 cmdLook = re.compile(("^(Scan|Look){1}$"),re.I)
 cmdHelp = re.compile(("^(Help){1}$"),re.I)
-cmdExamine = re.compile(("^Examine\s((\w+)(?:\s?)){1,4}$"),re.I)
-cmdTake = re.compile(("^Take\s((\w+)(?:\s?)){1,4}$"),re.I)
-cmdDrop = re.compile(("^Drop\s((\w+)(?:\s?)){1,4}$"),re.I)
+cmdExamine = re.compile(("^Examine\s((\w+)(?:\s)?){1,4}$"),re.I)
+cmdTake = re.compile(("^Take\s((\w+)(?:\s)?){1,4}$"),re.I)
+cmdDrop = re.compile(("^Drop\s((\w+)(?:\s)?){1,4}$"),re.I)
 
 def user_input(cmmd):
   if cmdExit.search(cmmd):
