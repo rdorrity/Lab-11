@@ -1,0 +1,30 @@
+Main Room (Courtyard)
+---------
+"Your body aches. There is flowing water, somewhere, but you cannot tell where.\n\
+Rolling over, blades of grass tickle your skin and the smell of ash brings\n\
+burning tears. As you wipe your eyes, the surrounding structure comes into focus.\n\
+You look around and discover you are in the ... "
+
+North Room (Foyer)
+----------
+"You are standing on a marble floor. Ahead of you is a grand staircase, flanked by two lamp posts.\n\
+There is a fireplace to the left, a table to the right of you, and a statue with a grandfather clock next
+to it. On the table, there is a (key)"
+
+South Room
+----------
+"There is a staircase leading downstairs, with a portrait on the wall. You can faintly hear flowing water
+coming from the stairwell."
+
+West Room
+---------
+"You are standing on a wood floor. There is a large round gyroscope like structure in the middle,
+rotating slowly. Around you are shelves filled with old books, and there are several pieces of old parchment
+scattered on the floor. The script on the pieces of parchment is faded, and you can barely read the script.
+In the corner, there is a chest in an alcove sitting on a velvet pillow, covered by glass."
+
+East Room
+---------
+You are standing on a stone floor. Flanking you on both sides are rows of portraits of various people who look unfamiliar.
+Each portrait is surrounded by two unlit torches. There is a chandelier hanging from the ceiling, and various
+wooden cabinets around the room. In the corner, there is an empty stone fountain."
