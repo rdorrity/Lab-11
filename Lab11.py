@@ -18,12 +18,12 @@
 ##############################################################
 ##############################################################
 #############          Sara Kazemi        ####################
-# Map class is a matrix (list of lists) that holds Room objects.
-# Map looks like:
+# Game map:
+#
 #                     --------------------
 #                    |                    |
 #                    |                    |
-#                    |                    |                           0
+#                    |                    |
 #                    |     NORTH ROOM     |
 #                    |                    |
 #                    |                    |
@@ -33,7 +33,7 @@
 # |                  |                    |                  |
 # |                  |                    |                  |
 # |                  D                    D                  |
-# |   WEST ROOM      O      START         O   EAST ROOM      |       1
+# |   WEST ROOM      O      START         O   EAST ROOM      |
 # |                  O                    O                  |
 # |                  R                    R                  |
 # |                  |                    |                  |
@@ -43,26 +43,95 @@
 #                    |                    |
 #                    |                    |
 #                    |    SOUTH ROOM      |
-#                    |                    |                          2
+#                    |                    |
 #                    |                    |
 #                    |                    |
 #                    |                    |
 #                     --------------------
-#         0                     1                  2
+#
 
 import re
 
-class Map:
 
-  def __init__(self, room_list):
-    self.room_list = room_list
+class Location:
+
+  def __init__(self, name, description, interactions, connections):
+    self.name = name
+    self.description = description
+    self.interactions = interactions
+    self.connections = connections
+    self.visited = False
+
+  def print_description(self):
+    print("\n\t~~"+self.name+"~~\n")
+    if not self.visited:
+      print(self.description)
+
+  def remove_item(self, item):
+    if item in itemTable:
+      self.description = self.description.replace(itemTable[item][2], "")
+
+  def __getitem__(self):
+    return self.name
 
 
-  def add(self, room, x, y):
-    self.room_list[x].insert(y, room)
+# Room Definitions
+main_room = Location("","",[], {})
+north_room = Location("","",[], {})
+south_room = Location("","",[], {})
+east_room = Location("","",[], {})
+west_room = Location("","",[], {})
 
-  def __getitem__(self, x, y):
-    return self.room_list[x][y]
+# Items in the world
+itemTable = {
+  "piece of metal": ["\nRadiates with a strange glow. Smooth to the touch.", main_room, "\nA shiny piece of\
+ metal catches your eye on the west wall."]
+}
+
+# Room Initializations
+
+# Main Room
+main_room.name ="Main Room"
+main_room.interactions = []
+main_room.description = " Your body aches. There is flowing water, somewhere, but you cannot tell where.\n\
+Rolling over, blades of grass tickle your skin and the smell of ash brings\n\
+burning tears. As you wipe your eyes, the surrounding structure comes into focus.\n\
+Lit with flickering torchlight, the room darkens at the corners. \
+The walls are\nCyclopean stone and painted with moss. \
+Motes of flora drift lightly and your feet\nsettle on soft grass. \
+Four doors face you in each cardinal direction." + itemTable["piece of metal"][2]
+main_room.connections = {"north": north_room, "south": south_room,\
+                         "east": east_room, "west": west_room }
+
+# North Room
+north_room.name = "North Room"
+north_room.description = "This is the North Room"
+north_room.interactions = []
+north_room.connectors = {"south": main_room}
+
+# South Room
+south_room.name = "South Room"
+south_room.description = "This is the South Room"
+south_room.interactions = []
+south_room.connectors = {"north": main_room}
+
+# East Room
+east_room.name = "East Room"
+east_room.description = "This is the East Room"
+east_room.interactions = []
+east_room.connectors = {"west": main_room}
+
+# West Room
+west_room.name = "West Room"
+west_room.description = "This is the West Room"
+west_room.interactions = []
+west_room.connectors = {"east": main_room}
+
+
+
+
+
+
 
 
 ##############################################################
@@ -228,35 +297,14 @@ def ryanPlay():
   
   
      
-def main():
-  m = Map([[0,1,2],\
-           [3,4,5],\
-           [6,7,8]])
-  print m.__getitem__(2,2)
-  main_room = Room("Main Room", 1, 1,
-                     "You wake up in a weird room. There are doors to the North, South, East, and West.")
-  north_room = Room("North Room", 0, 1, "You are in the North Room")
-  south_room = Room("South Room", 2, 1, "You are in the South Room")
-  east_room = Room("East Room", 2, 2, "You are in the East Room")
-  west_room = Room("West Room", 1, 0, "You are in the West Room")
-  m.add(north_room, 0, 1)
-  m.add(west_room, 1, 0)
-  m.add(main_room, 1, 1)
-  m.add(south_room, 2, 1)
-  m.add(east_room, 2, 2)
 
-  # Testing printing out name and description of a Room, given that the location on the map
-  # IS a room. Otherwise, print YOU CANNOT GO THAT WAY.
-  for x in range(0,3):
-    for y in range(0,3):
-      if isinstance(m.__getitem__(x,y), Room):
-        print m.__getitem__(x, y).name
-        print m.__getitem__(x, y).description
-      else:
-        print "YOU CANNOT GO THAT WAY"
-                              
+Location.print_description(main_room)
+Location.remove_item(main_room, "piece of metal")
+Location.print_description(main_room)
+
+
                                   
                                       
-main()
-ryanPlay()
+
+
 
