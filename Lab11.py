@@ -92,7 +92,7 @@ itemTable = {
 # Main Room
 main_room.name ="Main Room"
 main_room.interactions = []
-main_room.description = " Lit with a flickering torchlight, the room darkens at the corners. \
+main_room.description = "Lit with a flickering torchlight, the room darkens at the corners. \
 The walls are\nCyclopean stone and painted with moss. \
 Motes of flora drift lightly and your feet\nsettle on soft grass. \
 Four doors face you in each cardinal direction." + itemTable["piece of metal"][2]
@@ -140,7 +140,7 @@ cmdInv = re.compile("^(Inventory){1}$",re.I)
 cmdLook = re.compile(("^(Scan|Look){1}$"),re.I)
 cmdHelp = re.compile(("^(Help){1}$"),re.I)
 cmdExamine = re.compile(("^(?<=Examine\s)(\w+)$"),re.I)
-cmdTake = re.compile(("^(?<=Take\s)(\w+)$"),re.I)
+cmdTake = re.compile(("^(?<=Take\s)(\w+){1}$"),re.I)
 cmdDrop = re.compile(("^(?<=Drop\s)(\w+)$"),re.I)
 
 def user_input(cmmd):
@@ -150,9 +150,9 @@ def user_input(cmmd):
   elif cmdHelp.search(cmmd):
     print_directions()
   elif cmdInv.search(cmmd): 
-    Player.print_inventory()
+    p.print_inventory()
   elif cmdLook.search(cmmd):
-    print Player.location.description
+    print p.location.description
   elif cmdExamine.search(cmmd):
     examine = cmdExamine.search(cmmd).group(0)
     #if examine in (player inv) or examine in (room inv):
@@ -161,7 +161,7 @@ def user_input(cmmd):
       #Print that player can't do that
   elif cmdTake.search(cmmd):
     take = cmdTake.search(cmmd).group(0)
-    Player.take_item(take)
+    p.take_item(take)
   elif cmdDrop.search(cmmd):
     dropped = cmdDrop.search(cmmd).group(0)
     #If in player's inv:
@@ -229,11 +229,12 @@ Commands are not case sensitive.\n"
  Examine item/room: examine\n\
  Exit game: quit/exit\n\n\
 To access this help menu at any time, type \"help\".\n"
-  raw_input("Press Enter to continue...\n")
+  
      
 def main():
 
   print_directions()
+  raw_input("Press Enter to continue...\n")
   print_welcome()
   Location.print_description(main_room)
 
