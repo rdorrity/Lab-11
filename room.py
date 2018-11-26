@@ -61,3 +61,4 @@ class Room(object):
 	# depending if player has reached x or y bound of map (a.k.a. can't move further in one direction)
 	#def checkBounds(self):
 	
+	

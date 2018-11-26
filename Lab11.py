@@ -51,6 +51,7 @@
 #         0                     1                  2
 
 import re
+import random
 
 class Map:
 
@@ -121,33 +122,11 @@ class Room:
         return True
       else:
         return False 
-	
-# Checks room's valid directions for player movement.
-# Adds or removes room's valid directions (dictionary)
-# depending if player has reached x or y bound of map (a.k.a. can't move further in one direction)
-	
-		# X coordinate
-		x_rand = random.randint(x_min, x_max + 1)
-		# Y coordinate
-		y_rand = random.randint(y_min, y_max + 1)
-		
-		self.xpos = x_rand
-		self.ypos = y_rand 
-	
-	# Returns true if room has items, else false. 
-	def hasItems(self):
-		if self.room_items > 0:
-			return True
-		else:
-			return False 
-	
+
 	# Checks room's valid directions for player movement.
 	# Adds or removes room's valid directions (dictionary)
 	# depending if player has reached x or y bound of map (a.k.a. can't move further in one direction)
-	#def checkBounds(self):
-	
 
-	
 ##############################################################
 ##############################################################
 #############     Nathan Warren-Acord     ####################
