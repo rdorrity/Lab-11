@@ -236,12 +236,6 @@ def user_input(cmmd):
       #Remove from player's inv and add to room inv
     #Else:
       #Tell player it failed
-  elif cmdMove.search(cmmd):
-	move = cmdMove.search(cmmd).group(0)
-	#If move in room connections:
-		#Put player in the new room
-	#Else:
-		#print ("You can't go that way!")
   else:
     print "I don't know that command."
 
@@ -253,13 +247,13 @@ def user_input(cmmd):
 class Inventory:
   
   def __init__(self):
-    self.bag = []
+    self.bag = ['a picture of someone you know', 'a stick of gum', 'an old hankerchief']
     
   def add_item(self, item):
     self.bag.append(item)
     
   def get_item(self, item):
-    index = self.bag.index('key')
+    index = self.bag.index(item)
     return self.bag.pop(index)
     
   def get_inventory(self):
@@ -269,6 +263,14 @@ class Inventory:
     self.bag.remove(item)
     
     
+class Player:
+  
+  def __init__(self, name):
+    self.player = name
+            
+  def destroy(self):
+    print "You are no longer part of this world."
+    # exit command if we use this   
 
     
 #class Room:
@@ -292,11 +294,6 @@ class Inventory:
 #    self.room_items.remove(item)
 #   
 
-def ryanPlay():
-  
-  print 'Welcome my friend. I need you to go to the north room and find me a letter and the key inside that room.'
-  print 'Finding them is your only hope out of here'
-  
 def printWelcome():
   print "Your body aches. There is flowing water, somewhere, but you cannot tell where.\n\
 Rolling over, blades of grass tickle your skin and the smell of ash brings\n\
