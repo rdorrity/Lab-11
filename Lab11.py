@@ -124,79 +124,7 @@ west_room.interactions = []
 west_room.connectors = {"east": main_room}
 
 
-
-
-
-
-
-
-##############################################################
-##############################################################
-#############         Cody Young          ####################
- 
-class Room:
-# Class variables:
-# xpos: X coordinate of the room on the map.
-# ypos: Y coordinate of the room on the map.
-# room_items: List of items in room. Inventory class object. 
-# roomitem_count: Number of items in room.
-# name: Name of room.
-# directions: Dictionary of valid directions for player movement in or out of room.
-# description: Room flavor text.
-# hint: Hint text. 
-
-# Class "constructor"
-# Initializes room's name, x/y coordinates, and number of items.
-# Note: A player object, theoretically, will always start in a room at (0,0).
-#def __init__(self, name, xpos, ypos, item_count, description)
-  def __init__(self, name, xpos, ypos, description):
-    self.xpos = xpos
-    self.ypos = ypos
-    self.name = ""
-    self.room_items = Inventory()
-    #self.item_count = len(room_items)
-    #self.directions = {'directions': 'north', 'south', 'east', 'west'}
-    self.description = ""
-    self.directions = ['north', 'south', 'east', 'west']
-  
-    # Returns the x and y coordinates of the room's position.
-    def getPosition(self):
-      return self.xpos
-      return self.ypos
-
-    # Sets a room's loation using a random coordinate within the bounds of the map.
-    def randomPosition(self, name):
-    # Min/max ranges for x and y axes. Can be changed as necessary (use map class function?)
-      x_min = -10
-      x_max = 10
-      y_min = -10
-      y_max = 10
-	
-    # X coordinate
-      x_rand = random.randint(x_min, x_max + 1)
-    # Y coordinate
-      y_rand = random.randint(y_min, y_max + 1)
-
-      self.xpos = x_rand
-      self.ypos = y_rand 
-
-    # Returns true if room has items, else false. 
-    def hasItems(self):
-      if self.room_items > 0:
-        return True
-      else:
-        return False 
-	
-# Checks room's valid directions for player movement.
-# Adds or removes room's valid directions (dictionary)
-# depending if player has reached x or y bound of map (a.k.a. can't move further in one direction)
-	
-
-	
-##############################################################
-##############################################################
-#############     Nathan Warren-Acord     ####################
-
+cmdMove = re.compile(("(north|n|south|s|west|w|east|e|up|down)"),re.I)
 cmdExit = re.compile(("^(Quit|Exit){1}$"),re.I)
 cmdInv = re.compile("^(Inventory){1}$",re.I)
 cmdLook = re.compile(("^(Scan|Look){1}$"),re.I)
@@ -209,6 +137,9 @@ def user_input(cmmd):
   if cmdExit.search(cmmd):
     pass
     #Call exit function
+  elif cmdMove.search(cmmd):
+   pass
+   #player_move(cmdMove.search(cmmd).group(0))
   elif cmdHelp.search(cmmd):
     pass
     #Print out commands
@@ -239,80 +170,53 @@ def user_input(cmmd):
   else:
     print "I don't know that command."
 
-##############################################################
-##############################################################
-###############     Ryan Dorrity    ##########################
-
     
-class Inventory:
-  
+class Player():
   def __init__(self):
-    self.bag = []
-    
-  def add_item(self, item):
-    self.bag.append(item)
-    
-  def get_item(self, item):
-    index = self.bag.index('key')
-    return self.bag.pop(index)
-    
-  def get_inventory(self):
-    return self.bag
-    
-  def destroy(self, item):
-    self.bag.remove(item)
-    
-    
+    self.location = main_room
 
-    
-#class Room:
-  
-#  def __init__(self, name, room_items, description):
-#    self.name = name
-#    self.room_items = room_items # just testing inventory. This will be empty under final version.
-#    self.description = description
-#     
-#  def add_item(self, item):
-#    self.room_items.append(item)
-#     
-#  def get_item(self, item):
-#    index = self.room_items.index(item)
-#    return self.room_items.pop(index)
-#     
-#  def look(self):
-#    return self.room_items
-#     
-#  def destroy(self, item):  
-#    self.room_items.remove(item)
-#   
+  def take_item(self, item):
+    self.location.remove_item(item)
+    if item in itemTable:
+      itemTable[item][1] = self
 
-def ryanPlay():
+  def move(self, direction):
+    possibilities = ["north", "south", "east", "west", "up", "down"]
+    for possibility in possibilities:
+      if direction == possibility[0] or direction == possibility:
+        if possibility in self.location.connections:
+          self.location.visited = True
+          self.location = self.location.connections[possibility]
+        print "There's nowhere to go to the " + direction
+
+
   
-  print 'Welcome my friend. I need you to go to the north room and find me a letter and the key inside that room.'
-  print 'Finding them is your only hope out of here'
-  
-def printWelcome():
+def print_welcome():
   print "Your body aches. There is flowing water, somewhere, but you cannot tell where.\n\
 Rolling over, blades of grass tickle your skin and the smell of ash brings\n\
 burning tears. As you wipe your eyes, the surrounding structure comes into focus.\n\
 You look around and discover you are in the ... "
 
-def printDirections():
+def print_directions():
   print "\nWelcome to some sort of text adventure game blah blah"
   print "\nPrint directions here\n"
   raw_input("Press Enter to continue...\n")
      
 def main():
 
-  printDirections()
-  printWelcome()
+  print_directions()
+  print_welcome()
   Location.print_description(main_room)
 
 
 #testing
 main()
-#Location.remove_item(main_room, "piece of metal")
-#Location.print_description(main_room)
+p = Player()
+Player.take_item(p, "piece of metal")
+Location.print_description(main_room)
+p.move("north")
+print p.location.name
+
 
 
                                   
