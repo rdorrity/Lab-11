@@ -105,14 +105,14 @@ north_room.description = "You are standing on a marble floor. Ahead of you is a 
 There is a fireplace to the left, a table to the right of you, and a statue with a grandfather clock\n\
 next to it. On the table, there is a key. There is a door to the south."
 north_room.interactions = []
-north_room.connectors = {"south": main_room}
+north_room.connections = {"south": main_room}
 
 # South Room
 south_room.name = "South Room"
 south_room.description = "There is a staircase leading downstairs, with a portrait on the wall. You can faintly hear\n\
 flowing water coming from the stairwell. There is a door to the north."
 south_room.interactions = []
-south_room.connectors = {"north": main_room}
+south_room.connections = {"north": main_room}
 
 # East Room
 east_room.name = "East Room"
@@ -121,7 +121,7 @@ people who look unfamiliar. Each portrait is surrounded by two unlit torches. Th
 hanging from the ceiling, and various wooden cabinets around the room. In the corner, there is an\n\
 empty stone fountain."
 east_room.interactions = []
-east_room.connectors = {"west": main_room}
+east_room.connections = {"west": main_room}
 
 # West Room
 west_room.name = "West Room"
@@ -131,7 +131,7 @@ parchment scattered on the floor. The script on the pieces of parchment is faded
 read the script. In the corner, there is a chest in an alcove sitting on a velvet pillow, covered by\n\
 glass. There is a door to the east."
 west_room.interactions = []
-west_room.connectors = {"east": main_room}
+west_room.connections = {"east": main_room}
 
 
 cmdMove = re.compile(("(north|n|south|s|west|w|east|e|up|down)"),re.I)
@@ -199,6 +199,12 @@ class Player():
           self.location = self.location.connections[possibility]
         print "There's nowhere to go to the " + direction
 
+  def print_inventory(self):
+    for item in itemTable:
+      if itemTable[item][1] == self:
+        print item
+
+
 
   
 def print_welcome():
@@ -231,17 +237,18 @@ To access this help menu at any time, type \"help\".\n"
 def main():
 
   print_directions()
-  print_welcome()
-  Location.print_description(main_room)
+  #print_welcome()
+  #Location.print_description(main_room)
 
 
 #testing
-main()
+#main()
 p = Player()
-Player.take_item(p, "piece of metal")
-Location.print_description(main_room)
-p.move("north")
-print p.location.name
+p.take_item("piece of metal")
+p.print_inventory()
+#Location.print_description(main_room)
+#p.move("north")
+#print p.location.name
 
 
 
