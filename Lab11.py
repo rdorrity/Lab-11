@@ -144,6 +144,7 @@ class Room:
 	# Checks room's valid directions for player movement.
 	# Adds or removes room's valid directions (dictionary)
 	# depending if player has reached x or y bound of map (a.k.a. can't move further in one direction)
+	#def checkBounds(self):
 	
 
 	
