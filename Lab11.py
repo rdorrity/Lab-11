@@ -207,7 +207,8 @@ cmdMove = re.compile(("north|n|south|s|west|w|east|e|up|down{1}"),re.I)
 
 def user_input(cmmd):
   if cmdExit.search(cmmd):
-    pass
+    print "Game Over. Thanks for playing!"
+    raise SystemExit
     #Call exit function
   elif cmdHelp.search(cmmd):
     print_directions()
