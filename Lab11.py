@@ -147,13 +147,8 @@ def user_input(cmmd):
   if cmdExit.search(cmmd):
     print "Game Over. Thanks for playing!"
     raise SystemExit
-    #Call exit function
-  elif cmdMove.search(cmmd):
-   pass
-   #player_move(cmdMove.search(cmmd).group(0))
   elif cmdHelp.search(cmmd):
     print_directions()
-    #Print out commands
   elif cmdInv.search(cmmd): 
     Player.print_inventory()
   elif cmdLook.search(cmmd):
