@@ -101,25 +101,35 @@ main_room.connections = {"north": north_room, "south": south_room,\
 
 # North Room
 north_room.name = "North Room"
-north_room.description = "This is the North Room"
+north_room.description = "You are standing on a marble floor. Ahead of you is a grand staircase, flanked by two lamp posts.\n\
+There is a fireplace to the left, a table to the right of you, and a statue with a grandfather clock\n\
+next to it. On the table, there is a key. There is a door to the south."
 north_room.interactions = []
 north_room.connectors = {"south": main_room}
 
 # South Room
 south_room.name = "South Room"
-south_room.description = "This is the South Room"
+south_room.description = "There is a staircase leading downstairs, with a portrait on the wall. You can faintly hear\n\
+flowing water coming from the stairwell. There is a door to the north."
 south_room.interactions = []
 south_room.connectors = {"north": main_room}
 
 # East Room
 east_room.name = "East Room"
-east_room.description = "This is the East Room"
+east_room.description = "You are standing on a stone floor. Flanking you on both sides are rows of portraits of various\n\
+people who look unfamiliar. Each portrait is surrounded by two unlit torches. There is a chandelier\n\
+hanging from the ceiling, and various wooden cabinets around the room. In the corner, there is an\n\
+empty stone fountain."
 east_room.interactions = []
 east_room.connectors = {"west": main_room}
 
 # West Room
 west_room.name = "West Room"
-west_room.description = "This is the West Room"
+west_room.description = "You are standing on a wood floor. There is a large round gyroscope like structure in the middle,\n\
+rotating slowly. Around you are shelves filled with old books, and there are several pieces of old\n\
+parchment scattered on the floor. The script on the pieces of parchment is faded, and you can barely\n\
+read the script. In the corner, there is a chest in an alcove sitting on a velvet pillow, covered by\n\
+glass. There is a door to the east."
 west_room.interactions = []
 west_room.connectors = {"east": main_room}
 
@@ -198,8 +208,24 @@ burning tears. As you wipe your eyes, the surrounding structure comes into focus
 You look around and discover you are in the ... "
 
 def print_directions():
-  print "\nWelcome to some sort of text adventure game blah blah"
-  print "\nPrint directions here\n"
+  print "\t\t---------------------------------------------------------------"
+  print "\nWelcome to Stargate: SCSI-1! To navigate the game world, type the following commands.\n\
+Alternate commands are followed with a slash (e.g. command1/command2).\n\
+Commands are not case sensitive.\n"
+  print "\t\t---------------------------------------------------------------"
+  print "\n\n\t-Movement-\n\
+ Move north: n/north\n\
+ Move south: s/south\n\
+ Move west: w/west\n\
+ Move east: e/east\n\n\
+ \t-Player Actions-\n\
+ Check inventory: inventory\n\
+ Take item: take\n\
+ Drop item: drop\n\
+ Look around: look/scan\n\
+ Examine item/room: examine\n\
+ Exit game: quit/exit\n\n\
+To access this help menu at any time, type \"help\".\n"
   raw_input("Press Enter to continue...\n")
      
 def main():
