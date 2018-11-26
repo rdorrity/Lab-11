@@ -51,7 +51,6 @@
 #
 
 import re
-import random
 
 class Location:
 
@@ -102,100 +101,40 @@ main_room.connections = {"north": north_room, "south": south_room,\
 
 # North Room
 north_room.name = "North Room"
-north_room.description = "This is the North Room"
+north_room.description = "You are standing on a marble floor. Ahead of you is a grand staircase, flanked by two lamp posts.\n\
+There is a fireplace to the left, a table to the right of you, and a statue with a grandfather clock\n\
+next to it. On the table, there is a key. There is a door to the south."
 north_room.interactions = []
-north_room.connectors = {"south": main_room}
+north_room.connections = {"south": main_room}
 
 # South Room
 south_room.name = "South Room"
-south_room.description = "This is the South Room"
+south_room.description = "There is a staircase leading downstairs, with a portrait on the wall. You can faintly hear\n\
+flowing water coming from the stairwell. There is a door to the north."
 south_room.interactions = []
-south_room.connectors = {"north": main_room}
+south_room.connections = {"north": main_room}
 
 # East Room
 east_room.name = "East Room"
-east_room.description = "This is the East Room"
+east_room.description = "You are standing on a stone floor. Flanking you on both sides are rows of portraits of various\n\
+people who look unfamiliar. Each portrait is surrounded by two unlit torches. There is a chandelier\n\
+hanging from the ceiling, and various wooden cabinets around the room. In the corner, there is an\n\
+empty stone fountain."
 east_room.interactions = []
-east_room.connectors = {"west": main_room}
+east_room.connections = {"west": main_room}
 
 # West Room
 west_room.name = "West Room"
-west_room.description = "This is the West Room"
+west_room.description = "You are standing on a wood floor. There is a large round gyroscope like structure in the middle,\n\
+rotating slowly. Around you are shelves filled with old books, and there are several pieces of old\n\
+parchment scattered on the floor. The script on the pieces of parchment is faded, and you can barely\n\
+read the script. In the corner, there is a chest in an alcove sitting on a velvet pillow, covered by\n\
+glass. There is a door to the east."
 west_room.interactions = []
-west_room.connectors = {"east": main_room}
+west_room.connections = {"east": main_room}
 
 
-
-
-
-
-
-
-##############################################################
-##############################################################
-#############         Cody Young          ####################
- 
-class Room:
-# Class variables:
-# xpos: X coordinate of the room on the map.
-# ypos: Y coordinate of the room on the map.
-# map_position: Overall position on map. Stores x and y coordinates as tuples for convenience.
-# room_items: List of items in room. Inventory class object.
-# name: Name of room.
-# directions: Dictionary of valid directions for player movement in or out of room.
-# visited: Tracks whether a player has visited a room previously. False by default.
-# description: Room flavor text.
-# hint: Hint text. 
-
-# Class "constructor"
-# Initializes room's name, x/y coordinates, and number of items.
-# Note: A player object, theoretically, will always start in a room at (0,0).
-  def __init__(self, name, xpos, ypos,description):
-    self.xpos = xpos
-    self.ypos = ypos
-    self.map_position = tuple([self.xpos,self.ypos])
-    self.name = name
-    self.room_items = Inventory()
-    self.visited = False
-    self.description = description
-    self.directions = ['north', 'south', 'east', 'west']
-  
-  # Returns the x and y coordinates of the room's position.
-  def getPosition(self):
-    print("%d,%d" % (self.map_position))
-    return self.map_position
-
-  # Sets a room's loation using a random coordinate within the bounds of the map.
-  def randomPosition(self, name):
-  # Min/max ranges for x and y axes. Can be changed as necessary (use map class function?)
-    x_min = -10
-    x_max = 10
-    y_min = -10
-    y_max = 10
-	
-  # X coordinate
-    x_rand = random.randint(x_min, x_max + 1)
-  # Y coordinate
-    y_rand = random.randint(y_min, y_max + 1)
-
-    self.xpos = x_rand
-    self.ypos = y_rand
-
-    # Returns true if room has items, else false. 
-  def hasItems(self):
-    if len(self.room_items.get_inventory()) > 0:
-      return True
-    else:
-      return False
-
-  # Checks room's valid directions for player movement.
-  # Adds or removes room's valid directions (dictionary)
-  # depending if player has reached x or y bound of map (a.k.a. can't move further in one direction)
-
-##############################################################
-##############################################################
-#############     Nathan Warren-Acord     ####################
-
+cmdMove = re.compile(("(north|n|south|s|west|w|east|e|up|down)"),re.I)
 cmdExit = re.compile(("^(Quit|Exit){1}$"),re.I)
 cmdInv = re.compile("^(Inventory){1}$",re.I)
 cmdLook = re.compile(("^(Scan|Look){1}$"),re.I)
@@ -203,13 +142,15 @@ cmdHelp = re.compile(("^(Help){1}$"),re.I)
 cmdExamine = re.compile(("^(?<=Examine\s)(\w+)$"),re.I)
 cmdTake = re.compile(("^(?<=Take\s)(\w+)$"),re.I)
 cmdDrop = re.compile(("^(?<=Drop\s)(\w+)$"),re.I)
-cmdMove = re.compile(("north|n|south|s|west|w|east|e|up|down{1}"),re.I)
 
 def user_input(cmmd):
   if cmdExit.search(cmmd):
     print "Game Over. Thanks for playing!"
     raise SystemExit
     #Call exit function
+  elif cmdMove.search(cmmd):
+   pass
+   #player_move(cmdMove.search(cmmd).group(0))
   elif cmdHelp.search(cmmd):
     print_directions()
     #Print out commands
@@ -238,95 +179,80 @@ def user_input(cmmd):
   else:
     print "I don't know that command."
 
-##############################################################
-##############################################################
-###############     Ryan Dorrity    ##########################
-
     
-class Inventory:
-  
+class Player():
   def __init__(self):
-    self.bag = ['a picture of someone you know', 'a stick of gum', 'an old hankerchief']
-    
-  def add_item(self, item):
-    self.bag.append(item)
-    
-  def get_item(self, item):
-    index = self.bag.index(item)
-    return self.bag.pop(index)
-    
-  def get_inventory(self):
-    return self.bag
-    
-  def destroy(self, item):
-    self.bag.remove(item)
-    
-    
-class Player:
-  
-  def __init__(self, name):
-    self.player = name
-            
-  def destroy(self):
-    print "You are no longer part of this world."
-    # exit command if we use this   
+    self.location = main_room
 
-    
-#class Room:
-  
-#  def __init__(self, name, room_items, description):
-#    self.name = name
-#    self.room_items = room_items # just testing inventory. This will be empty under final version.
-#    self.description = description
-#     
-#  def add_item(self, item):
-#    self.room_items.append(item)
-#     
-#  def get_item(self, item):
-#    index = self.room_items.index(item)
-#    return self.room_items.pop(index)
-#     
-#  def look(self):
-#    return self.room_items
-#     
-#  def destroy(self, item):  
-#    self.room_items.remove(item)
-#   
+  def take_item(self, item):
+    self.location.remove_item(item)
+    if item in itemTable:
+      itemTable[item][1] = self
 
-def printWelcome():
+  def move(self, direction):
+    possibilities = ["north", "south", "east", "west", "up", "down"]
+    for possibility in possibilities:
+      if direction == possibility[0] or direction == possibility:
+        if possibility in self.location.connections:
+          self.location.visited = True
+          self.location = self.location.connections[possibility]
+        print "There's nowhere to go to the " + direction
+
+  def print_inventory(self):
+    for item in itemTable:
+      if itemTable[item][1] == self:
+        print item
+
+
+
+  
+def print_welcome():
   print "Your body aches. There is flowing water, somewhere, but you cannot tell where.\n\
 Rolling over, blades of grass tickle your skin and the smell of ash brings\n\
 burning tears. As you wipe your eyes, the surrounding structure comes into focus.\n\
 You look around and discover you are in the ... "
 
-def printDirections():
-  print "\nWelcome to some sort of text adventure game blah blah"
-  print "\nPrint directions here\n"
+def print_directions():
+  print "\t\t---------------------------------------------------------------"
+  print "\nWelcome to Stargate: SCSI-1! To navigate the game world, type the following commands.\n\
+Alternate commands are followed with a slash (e.g. command1/command2).\n\
+Commands are not case sensitive.\n"
+  print "\t\t---------------------------------------------------------------"
+  print "\n\n\t-Movement-\n\
+ Move north: n/north\n\
+ Move south: s/south\n\
+ Move west: w/west\n\
+ Move east: e/east\n\n\
+ \t-Player Actions-\n\
+ Check inventory: inventory\n\
+ Take item: take\n\
+ Drop item: drop\n\
+ Look around: look/scan\n\
+ Examine item/room: examine\n\
+ Exit game: quit/exit\n\n\
+To access this help menu at any time, type \"help\".\n"
   raw_input("Press Enter to continue...\n")
      
 def main():
 
-  printDirections()
-  printWelcome()
+  print_directions()
+  print_welcome()
   #Location.print_description(main_room)
-
-  # These following statements are for testing creating Room class objects, and returning their coordinates. - Cody
-
-  room_0 = Room("Entrance",0,0,"You are at the entrance.")
-  room_1 = Room("East Room",1,0,"You are in the east room.")
-  room_2 = Room("West Room",-1,0,"You are in the west room.")
-  room_3 = Room("Entrance",0,1,"You are in the north room..")
-  room_4 = Room("Entrance",0,-1,"You are in the south room.")
-
-  room_0.getPosition()
-  room_1.getPosition()
-  room_2.getPosition()
-  room_3.getPosition()
-  room_4.getPosition()
-
 
 
 #testing
 main()
-#Location.remove_item(main_room, "piece of metal")
+p = Player()
+p.take_item("piece of metal")
+p.print_inventory()
 #Location.print_description(main_room)
+#p.move("north")
+#print p.location.name
+
+
+
+                                  
+                                      
+
+
+
