@@ -139,54 +139,54 @@ class Room:
 # Class variables:
 # xpos: X coordinate of the room on the map.
 # ypos: Y coordinate of the room on the map.
-# room_items: List of items in room. Inventory class object. 
-# roomitem_count: Number of items in room.
+# map_position: Overall position on map. Stores x and y coordinates as tuples for convenience.
+# room_items: List of items in room. Inventory class object.
 # name: Name of room.
 # directions: Dictionary of valid directions for player movement in or out of room.
+# visited: Tracks whether a player has visited a room previously. False by default.
 # description: Room flavor text.
 # hint: Hint text. 
 
 # Class "constructor"
 # Initializes room's name, x/y coordinates, and number of items.
 # Note: A player object, theoretically, will always start in a room at (0,0).
-#def __init__(self, name, xpos, ypos, item_count, description)
-  def __init__(self, name, xpos, ypos, description):
+  def __init__(self, name, xpos, ypos,description):
     self.xpos = xpos
     self.ypos = ypos
-    self.name = ""
+    self.map_position = tuple([self.xpos,self.ypos])
+    self.name = name
     self.room_items = Inventory()
-    #self.item_count = len(room_items)
-    #self.directions = {'directions': 'north', 'south', 'east', 'west'}
-    self.description = ""
+    self.visited = False
+    self.description = description
     self.directions = ['north', 'south', 'east', 'west']
   
-    # Returns the x and y coordinates of the room's position.
-    def getPosition(self):
-      return self.xpos
-      return self.ypos
+  # Returns the x and y coordinates of the room's position.
+  def getPosition(self):
+    print("%d,%d" % (self.map_position))
+    return self.map_position
 
-    # Sets a room's loation using a random coordinate within the bounds of the map.
-    def randomPosition(self, name):
-    # Min/max ranges for x and y axes. Can be changed as necessary (use map class function?)
-      x_min = -10
-      x_max = 10
-      y_min = -10
-      y_max = 10
+  # Sets a room's loation using a random coordinate within the bounds of the map.
+  def randomPosition(self, name):
+  # Min/max ranges for x and y axes. Can be changed as necessary (use map class function?)
+    x_min = -10
+    x_max = 10
+    y_min = -10
+    y_max = 10
 	
-    # X coordinate
-      x_rand = random.randint(x_min, x_max + 1)
-    # Y coordinate
-      y_rand = random.randint(y_min, y_max + 1)
+  # X coordinate
+    x_rand = random.randint(x_min, x_max + 1)
+  # Y coordinate
+    y_rand = random.randint(y_min, y_max + 1)
 
-      self.xpos = x_rand
-      self.ypos = y_rand 
+    self.xpos = x_rand
+    self.ypos = y_rand
 
     # Returns true if room has items, else false. 
-    def hasItems(self):
-      if self.room_items > 0:
-        return True
-      else:
-        return False 
+  def hasItems(self):
+    if len(self.room_items.get_inventory()) > 0:
+      return True
+    else:
+      return False
 
 	# Checks room's valid directions for player movement.
 	# Adds or removes room's valid directions (dictionary)
@@ -305,7 +305,22 @@ def main():
 
   printDirections()
   printWelcome()
-  Location.print_description(main_room)
+  #Location.print_description(main_room)
+
+  # These following statements are for testing creating Room class objects, and returning their coordinates. - Cody
+
+  room_0 = Room("Entrance",0,0,"You are at the entrance.")
+  room_1 = Room("East Room",1,0,"You are in the east room.")
+  room_2 = Room("West Room",-1,0,"You are in the west room.")
+  room_3 = Room("Entrance",0,1,"You are in the north room..")
+  room_4 = Room("Entrance",0,-1,"You are in the south room.")
+
+  room_0.getPosition()
+  room_1.getPosition()
+  room_2.getPosition()
+  room_3.getPosition()
+  room_4.getPosition()
+
 
 
 #testing
