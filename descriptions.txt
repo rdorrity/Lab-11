@@ -25,6 +25,32 @@ In the corner, there is a chest in an alcove sitting on a velvet pillow, covered
 
 East Room
 ---------
-You are standing on a stone floor. Flanking you on both sides are rows of portraits of various people who look unfamiliar.
+"You are standing on a stone floor. Flanking you on both sides are rows of portraits of various people who look unfamiliar.
 Each portrait is surrounded by two unlit torches. There is a chandelier hanging from the ceiling, and various
 wooden cabinets around the room. In the corner, there is an empty stone fountain."
+
+
+Introduction/Help Menu
+----------------------
+"Welcome to Stargate: SCSI-1! To navigate the game world, type the following commands.
+ Alternate commands are followed with a slash (e.g. command1/command2).
+ Commands are not case sensitive. 
+
+ Movement 
+ --------
+ Move north: n/north
+ Move south: s/south
+ Move west: w/west
+ Move east: e/east
+ 
+ Player Actions
+ --------------
+ Check inventory: inventory
+ Take item: take
+ Drop item: drop
+ Look around: look/scan
+ Examine item/room: examine
+ Exit game: quit/exit 
+ 
+ 
+ To access this help menu, type "help"."
